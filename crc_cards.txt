@@ -1,0 +1,25 @@
+
+Cashier
+    Responsibilities:
+    - Make deposit. Need: qty, date.
+    - Make withdrawal. Need: qty, date.
+    - Make transfer. Need: destination account, qty, date.
+    - Print movements. Need: printer, repository.
+    Collaborators:
+    - Clock
+    - Repository
+    - Printer
+
+Clock
+    Responsibilities:
+    - Know "now"
+
+Repository
+    Responsibilities:
+    - Store movements.
+    - Retrieve movements.
+    - Filter movements. Need: filters.
+
+Printer
+    Responsibilities:
+    - Print text.
