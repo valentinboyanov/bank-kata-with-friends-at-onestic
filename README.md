@@ -1,0 +1,1 @@
+# bank-kata-with-friends-at-onestic
