@@ -11,10 +11,19 @@ class CashierUnitTest extends \PHPUnit\Framework\TestCase
     /** @var Cashier */
     private $cashier;
 
+    /** @var Clock */
+    private $clockMock;
+
     public function setUp()
     {
         parent::setUp();
-        $this->cashier = new Cashier(new Clock());
+
+        $this->clockMock = $this->createMock(Clock::class);
+        $this->clockMock
+            ->method('now')
+            ->willReturn('2018-02-13');
+
+        $this->cashier = new Cashier($this->clockMock);
     }
 
     public function tearDown()
@@ -43,6 +52,6 @@ class CashierUnitTest extends \PHPUnit\Framework\TestCase
     {
         $this->cashier->makeDeposit(self::ANY_AMOUNT);
 
-        $this->assertEquals('2018-02-13', $this->cashier->getLastDepositDate());
+        $this->assertEquals($this->clockMock->now(), $this->cashier->getLastDepositDate());
     }
 }
