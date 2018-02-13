@@ -1,30 +1,48 @@
 <?php
 namespace Kata\Tests;
 use Kata\Cashier;
+use Kata\Clock;
 
 class CashierUnitTest extends \PHPUnit\Framework\TestCase
 {
+    const ANY_AMOUNT       = 1000;
+    const ANY_OTHER_AMOUNT = 1000;
+
+    /** @var Cashier */
+    private $cashier;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $this->cashier = new Cashier(new Clock());
+    }
+
+    public function tearDown()
+    {
+        parent::tearDown();
+    }
+
     public function test_can_make_a_deposit()
     {
-        $cashier = new Cashier();
+        $this->cashier->makeDeposit(self::ANY_AMOUNT);
 
-        $cashier->makeDeposit(1000);
-
-        $this->assertEquals(1000, $cashier->getBalance());
+        $this->assertEquals(self::ANY_AMOUNT, $this->cashier->getBalance());
     }
 
     public function test_can_make_two_deposits()
     {
-        $cashier = new Cashier();
+        $expectedBalance = self::ANY_AMOUNT + self::ANY_OTHER_AMOUNT;
 
-        $cashier->makeDeposit(1000);
-        $cashier->makeDeposit(1000);
+        $this->cashier->makeDeposit(self::ANY_AMOUNT);
+        $this->cashier->makeDeposit(self::ANY_OTHER_AMOUNT);
 
-        $this->assertEquals(2000, $cashier->getBalance());
+        $this->assertEquals($expectedBalance, $this->cashier->getBalance());
     }
 
-    public function test_can_make_deposit_with_current_date()
+    public function test_can_get_last_deposit_date()
     {
+        $this->cashier->makeDeposit(self::ANY_AMOUNT);
 
+        $this->assertEquals('2018-02-13', $this->cashier->getLastDepositDate());
     }
 }

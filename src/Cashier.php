@@ -19,17 +19,19 @@ class Cashier
 
     private $balance = 0;
 
+    private $lastDepositDate;
+
     public function __construct(Clock $clock = null, Printer $printer = null, Repository $repository = null)
     {
-        $this->clock = $clock;
-        $this->printer = $printer;
+        $this->clock      = $clock;
+        $this->printer    = $printer;
         $this->repository = $repository;
     }
 
     public function makeDeposit($quantity)
     {
         $this->balance += $quantity;
-
+        $this->lastDepositDate = $this->clock->now();
     }
 
     public function makeWithdrawal($qty)
@@ -44,4 +46,10 @@ class Cashier
     {
         return $this->balance;
     }
+
+    public function getLastDepositDate()
+    {
+        return $this->lastDepositDate;
+    }
+
 }
