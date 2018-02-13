@@ -45,4 +45,6 @@ class CashierTest extends TestCase
 
         $cashier->printMovements();
     }
+
+
 }

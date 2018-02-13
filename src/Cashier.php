@@ -17,15 +17,19 @@ class Cashier
      */
     private $repository;
 
-    public function __construct(Clock $clock, Printer $printer, Repository $repository)
+    private $balance = 0;
+
+    public function __construct(Clock $clock = null, Printer $printer = null, Repository $repository = null)
     {
         $this->clock = $clock;
         $this->printer = $printer;
         $this->repository = $repository;
     }
 
-    public function makeDeposit($qty)
+    public function makeDeposit($quantity)
     {
+        $this->balance += $quantity;
+
     }
 
     public function makeWithdrawal($qty)
@@ -34,5 +38,10 @@ class Cashier
 
     public function printMovements()
     {
+    }
+
+    public function getBalance()
+    {
+        return $this->balance;
     }
 }

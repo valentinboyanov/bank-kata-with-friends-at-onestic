@@ -5,6 +5,5 @@ class Printer
 {
     public function print($text)
     {
-
     }
 }
